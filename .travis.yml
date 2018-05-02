@@ -1,0 +1,16 @@
+language: php
+install:
+    composer install
+php:
+  - 7.1
+  - 7.2
+
+script:
+  - mkdir -p build/logs
+  - php vendor/bin/phpunit -c phpunit.xml --coverage-clover=coverage.xml --testdox
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash) -t 03ae5c0f-95ef-4671-a35b-0a9cea99f56c
+
+after_script:
+  - php vendor/bin/php-coveralls -v
