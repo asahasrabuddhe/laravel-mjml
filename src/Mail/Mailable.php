@@ -2,17 +2,14 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Mail;
 
-use Illuminate\Mail\Mailable as IlluminateMailable;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\View;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\Exception\ProcessFailedException;
 use Asahasrabuddhe\LaravelMJML\Process\MJML;
+use Illuminate\Mail\Mailable as IlluminateMailable;
 
 class Mailable extends IlluminateMailable
 {
     /**
-     * The MJML template for the message (if applicable)
+     * The MJML template for the message (if applicable).
      *
      * @var string
      */
@@ -27,7 +24,7 @@ class Mailable extends IlluminateMailable
      */
     public function mjml($view, array $data = [])
     {
-        $this->mjml = $view;
+        $this->mjml     = $view;
         $this->viewData = array_merge($this->viewData, $data);
 
         return $this;
@@ -51,6 +48,7 @@ class Mailable extends IlluminateMailable
         } elseif (isset($this->textView)) {
             return ['text' => $this->textView];
         }
+
         return $this->view;
     }
 
@@ -63,6 +61,7 @@ class Mailable extends IlluminateMailable
     {
         $view = View::make($this->mjml, $this->viewData);
         $mjml = new MJML($view);
+
         return [
             'html' => $mjml->render(),
         ];

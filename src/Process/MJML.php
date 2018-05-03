@@ -2,11 +2,10 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\HtmlString;
 
 class MJML
 {
@@ -27,13 +26,13 @@ class MJML
     public function buildCmdLineFromConfig()
     {
         return implode(' ', [
-            config('mjml.auto_detect_path') ? $this->detectBinaryPath()  : config('mjml.path_to_binary'),
+            config('mjml.auto_detect_path') ? $this->detectBinaryPath() : config('mjml.path_to_binary'),
             $this->path,
             '-o',
             $this->path,
         ]);
     }
-    
+
     public function render()
     {
         $html = $this->view->render();
@@ -42,7 +41,7 @@ class MJML
         $this->process = new Process($this->buildCmdLineFromConfig());
         $this->process->run();
         // executes after the command finishes
-        if (!$this->process->isSuccessful()) {
+        if (! $this->process->isSuccessful()) {
             throw new ProcessFailedException($this->process);
         }
 
