@@ -7,7 +7,7 @@ use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Illuminate\Support\Facades\File;
+use Asahasrabuddhe\LaravelMJML\Process\MJML;
 
 class Mailable extends IlluminateMailable
 {
@@ -62,23 +62,9 @@ class Mailable extends IlluminateMailable
     protected function buildMjmlView()
     {
         $view = View::make($this->mjml, $this->viewData);
-        $compiledView = storage_path('framework/views/' . sha1($view->getPath()) . '.php');
-        $html = $view->render();
-        File::put($compiledView, $html);
+        $mjml = new MJML($view);
         return [
-            'html' => new HtmlString($this->buildMjmlHtml($compiledView)),
+            'html' => $mjml->render(),
         ];
     }
-
-    protected function buildMjmlHtml($html)
-    {
-        $process = new Process('node /var/www/html/node_modules/.bin/mjml ' . $html . ' -o ' . $html);
-        $process->run();
-        // executes after the command finishes
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-        return File::get($html);
-    }
-
 }
