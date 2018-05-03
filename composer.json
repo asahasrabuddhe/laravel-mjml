@@ -27,5 +27,8 @@
     "require-dev": {
         "orchestra/testbench": "~3.6",
         "php-coveralls/php-coveralls": "^2.0"
+    },
+    "require": {
+        "symfony/process": "^4.0"
     }
 }
