@@ -2,12 +2,11 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
+use Html2Text\Html2Text;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-use Illuminate\View\View;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\HtmlString;
-use Html2Text\Html2Text;
 
 class MJML
 {
@@ -21,8 +20,8 @@ class MJML
 
     public function __construct($view)
     {
-        $this->view = $view;
-        $this->path = storage_path('framework/views/' . sha1($this->view->getPath()) . '.php');
+        $this->view         = $view;
+        $this->path         = storage_path('framework/views/' . sha1($this->view->getPath()) . '.php');
         $this->compiledPath = storage_path('framework/views/' . sha1($this->view->getPath() . '_compiled') . '.php');
     }
 
@@ -38,14 +37,14 @@ class MJML
 
     public function renderHTML()
     {
-        if( $this->isExpired() ) {
+        if ($this->isExpired()) {
             $html = $this->view->render();
             File::put($this->path, $html);
 
             $this->process = new Process($this->buildCmdLineFromConfig());
             $this->process->run();
             // executes after the command finishes
-            if (!$this->process->isSuccessful()) {
+            if (! $this->process->isSuccessful()) {
                 throw new ProcessFailedException($this->process);
             }
         }
@@ -55,7 +54,7 @@ class MJML
 
     public function renderText()
     {
-        return new HtmlString( html_entity_decode(preg_replace("/[\r\n]{2,}/", "\n\n", Html2Text::convert($this->renderHTML())), ENT_QUOTES, 'UTF-8'));
+        return new HtmlString(html_entity_decode(preg_replace("/[\r\n]{2,}/", "\n\n", Html2Text::convert($this->renderHTML())), ENT_QUOTES, 'UTF-8'));
     }
 
     public function detectBinaryPath()
@@ -65,7 +64,7 @@ class MJML
 
     public function isExpired()
     {
-        if (!File::exists($this->compiledPath)) {
+        if (! File::exists($this->compiledPath)) {
             return true;
         }
         
