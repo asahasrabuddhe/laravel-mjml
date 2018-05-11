@@ -63,8 +63,10 @@ class Mailable extends IlluminateMailable
     {
         $view = View::make($this->mjml, $this->viewData);
         $mjml = new MJML($view);
+        
         return [
-            'html' => $mjml->render(),
+            'html' => $mjml->renderHTML(),
+            'text' => $mjml->renderText(),
         ];
     }
 }
