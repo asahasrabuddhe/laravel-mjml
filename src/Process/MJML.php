@@ -4,8 +4,6 @@ namespace Asahasrabuddhe\LaravelMJML\Process;
 
 use Html2Text\Html2Text;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\HtmlString;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -70,7 +68,7 @@ class MJML
             return true;
         }
 
-        return File::lastModified($this->path) >=
+        return File::lastModified($this->view->getPath()) >=
             File::lastModified($this->compiledPath);
     }
 }
