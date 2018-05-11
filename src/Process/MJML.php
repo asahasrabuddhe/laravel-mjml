@@ -2,6 +2,8 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Illuminate\View\View;
