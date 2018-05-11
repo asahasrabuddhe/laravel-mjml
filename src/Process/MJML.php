@@ -67,7 +67,7 @@ class MJML
         if (! File::exists($this->compiledPath)) {
             return true;
         }
-        
+
         return File::lastModified($this->view->getPath()) >=
             File::lastModified($this->compiledPath);
     }
