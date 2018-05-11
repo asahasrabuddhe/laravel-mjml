@@ -2,7 +2,10 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
+use Html2Text\Html2Text;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
@@ -19,8 +22,9 @@ class MJML
 
     public function __construct($view)
     {
-        $this->view = $view;
-        $this->path = storage_path('framework/views/' . sha1($this->view->getPath()) . '.php');
+        $this->view         = $view;
+        $this->path         = storage_path('framework/views/' . sha1($this->view->getPath()) . '.php');
+        $this->compiledPath = storage_path('framework/views/' . sha1($this->view->getPath() . '_compiled') . '.php');
     }
 
     public function buildCmdLineFromConfig()
@@ -29,27 +33,44 @@ class MJML
             config('mjml.auto_detect_path') ? $this->detectBinaryPath() : config('mjml.path_to_binary'),
             $this->path,
             '-o',
-            $this->path,
+            $this->compiledPath,
         ]);
     }
 
-    public function render()
+    public function renderHTML()
     {
-        $html = $this->view->render();
-        File::put($this->path, $html);
+        if ($this->isExpired()) {
+            $html = $this->view->render();
+            File::put($this->path, $html);
 
-        $this->process = new Process($this->buildCmdLineFromConfig());
-        $this->process->run();
-        // executes after the command finishes
-        if (! $this->process->isSuccessful()) {
-            throw new ProcessFailedException($this->process);
+            $this->process = new Process($this->buildCmdLineFromConfig());
+            $this->process->run();
+            // executes after the command finishes
+            if (! $this->process->isSuccessful()) {
+                throw new ProcessFailedException($this->process);
+            }
         }
 
-        return new HtmlString(File::get($this->path));
+        return new HtmlString(File::get($this->compiledPath));
+    }
+
+    public function renderText()
+    {
+        return new HtmlString(html_entity_decode(preg_replace("/[\r\n]{2,}/", "\n\n", Html2Text::convert($this->renderHTML())), ENT_QUOTES, 'UTF-8'));
     }
 
     public function detectBinaryPath()
     {
         return base_path('node_modules/.bin/mjml');
+    }
+
+    public function isExpired()
+    {
+        if (! File::exists($this->compiledPath)) {
+            return true;
+        }
+
+        return File::lastModified($this->path) >=
+            File::lastModified($this->compiledPath);
     }
 }
