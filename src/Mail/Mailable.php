@@ -16,7 +16,7 @@ class Mailable extends IlluminateMailable
     protected $mjml;
 
     /**
-     * Set the Markdown template for the message.
+     * Set the MJML template for the message.
      *
      * @param  string  $view
      * @param  array  $data
