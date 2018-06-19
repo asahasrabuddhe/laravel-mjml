@@ -44,6 +44,7 @@ class MJML
             $this->process = new Process($this->buildCmdLineFromConfig());
             $this->process->run();
             // executes after the command finishes
+            File::delete($this->path);
             if (! $this->process->isSuccessful()) {
                 throw new ProcessFailedException($this->process);
             }
