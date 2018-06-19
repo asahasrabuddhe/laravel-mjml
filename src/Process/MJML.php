@@ -37,17 +37,15 @@ class MJML
 
     public function renderHTML()
     {
-        if ($this->isExpired()) {
-            $html = $this->view->render();
-            File::put($this->path, $html);
+        $html = $this->view->render();
+        File::put($this->path, $html);
 
-            $this->process = new Process($this->buildCmdLineFromConfig());
-            $this->process->run();
-            // executes after the command finishes
-            File::delete($this->path);
-            if (! $this->process->isSuccessful()) {
-                throw new ProcessFailedException($this->process);
-            }
+        $this->process = new Process($this->buildCmdLineFromConfig());
+        $this->process->run();
+        // executes after the command finishes
+        File::delete($this->path);
+        if (! $this->process->isSuccessful()) {
+            throw new ProcessFailedException($this->process);
         }
 
         return new HtmlString(File::get($this->compiledPath));
@@ -61,15 +59,5 @@ class MJML
     public function detectBinaryPath()
     {
         return base_path('node_modules/.bin/mjml');
-    }
-
-    public function isExpired()
-    {
-        if (! File::exists($this->compiledPath)) {
-            return true;
-        }
-
-        return File::lastModified($this->view->getPath()) >=
-            File::lastModified($this->compiledPath);
     }
 }
