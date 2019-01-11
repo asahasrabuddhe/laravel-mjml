@@ -69,7 +69,6 @@ class MJML
         $this->compiledPath = storage_path("framework/views/{$contentChecksum}.php");
 
         if (! File::exists($this->compiledPath)) {
-
             $this->process = new Process($this->buildCmdLineFromConfig());
             $this->process->run();
 
@@ -77,6 +76,7 @@ class MJML
                 throw new ProcessFailedException($this->process);
             }
         }
+
         return new HtmlString(File::get($this->compiledPath));
     }
 
