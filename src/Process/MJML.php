@@ -3,9 +3,9 @@
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
 use Html2Text\Html2Text;
+use Illuminate\View\View;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\File;
-use Illuminate\View\View;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
@@ -38,7 +38,7 @@ class MJML
     }
 
     /**
-     * Build the mjml command
+     * Build the mjml command.
      *
      * @return string
      */
@@ -53,7 +53,7 @@ class MJML
     }
 
     /**
-     * Render the html content
+     * Render the html content.
      *
      * @return HtmlString
      *
@@ -65,15 +65,15 @@ class MJML
 
         File::put($this->path, $html);
 
-        $contentChecksum = hash('sha256', $html);
+        $contentChecksum    = hash('sha256', $html);
         $this->compiledPath = storage_path("framework/views/{$contentChecksum}.php");
 
-        if (!File::exists($this->compiledPath)) {
+        if (! File::exists($this->compiledPath)) {
 
             $this->process = new Process($this->buildCmdLineFromConfig());
             $this->process->run();
 
-            if (!$this->process->isSuccessful()) {
+            if (! $this->process->isSuccessful()) {
                 throw new ProcessFailedException($this->process);
             }
         }
@@ -81,7 +81,7 @@ class MJML
     }
 
     /**
-     * Render the text content
+     * Render the text content.
      *
      * @return HtmlString
      *
@@ -94,7 +94,7 @@ class MJML
     }
 
     /**
-     * Detect the path to the mjml executable
+     * Detect the path to the mjml executable.
      *
      * @return string
      */
