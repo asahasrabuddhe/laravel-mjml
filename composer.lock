@@ -1,23 +1,73 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0d1d5456bde0bef95e84f5489cb390ef",
+    "content-hash": "94ff17a58d716a68fe18fd0d9102be8a",
     "packages": [
         {
-            "name": "symfony/process",
-            "version": "v4.0.9",
+            "name": "soundasleep/html2text",
+            "version": "0.5.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "d7dc1ee5dfe9f732cb1bba7310f5b99f2b7a6d25"
+                "url": "https://github.com/soundasleep/html2text.git",
+                "reference": "cdb89f6ffa2c4cc78f8ed9ea6ee0594a9133ccad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d7dc1ee5dfe9f732cb1bba7310f5b99f2b7a6d25",
-                "reference": "d7dc1ee5dfe9f732cb1bba7310f5b99f2b7a6d25",
+                "url": "https://api.github.com/repos/soundasleep/html2text/zipball/cdb89f6ffa2c4cc78f8ed9ea6ee0594a9133ccad",
+                "reference": "cdb89f6ffa2c4cc78f8ed9ea6ee0594a9133ccad",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-libxml": "*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=4.0",
+                "soundasleep/component-tests": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Html2Text\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "EPL-1.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jevon Wright",
+                    "homepage": "https://jevon.org",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PHP script to convert HTML into a plain text format",
+            "homepage": "https://github.com/soundasleep/html2text",
+            "keywords": [
+                "email",
+                "html",
+                "php",
+                "text"
+            ],
+            "time": "2017-04-19T22:01:50+00:00"
+        },
+        {
+            "name": "symfony/process",
+            "version": "v4.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/process.git",
+                "reference": "51c0135ef3f44c5803b33dc60e96bf4f77752726"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/51c0135ef3f44c5803b33dc60e96bf4f77752726",
+                "reference": "51c0135ef3f44c5803b33dc60e96bf4f77752726",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +76,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.4-dev"
                 }
             },
             "autoload": {
@@ -53,7 +103,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-03T05:24:00+00:00"
+            "time": "2019-11-28T13:33:56+00:00"
         }
     ],
     "packages-dev": [
@@ -1961,6 +2011,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-04-11T04:50:36+00:00"
         },
         {
