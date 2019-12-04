@@ -34,7 +34,7 @@ class MJML
     public function __construct($view)
     {
         $this->view = $view;
-        $this->path = storage_path('framework/views/' . sha1($this->view->getPath()) . '.php');
+        $this->path = storage_path('framework/views/' . sha1($this->view->getPath()).sha1(serialize($this->view->getData())) . '.php');
     }
 
     /**
