@@ -2,9 +2,9 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Mail;
 
-use Illuminate\Support\Facades\View;
 use Asahasrabuddhe\LaravelMJML\Process\MJML;
 use Illuminate\Mail\Mailable as IlluminateMailable;
+use Illuminate\Support\Facades\View;
 
 class Mailable extends IlluminateMailable
 {
