@@ -3,11 +3,11 @@
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
 use Html2Text\Html2Text;
-use Illuminate\View\View;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\File;
-use Symfony\Component\Process\Process;
+use Illuminate\Support\HtmlString;
+use Illuminate\View\View;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
 
 class MJML
 {
@@ -34,7 +34,12 @@ class MJML
     public function __construct($view)
     {
         $this->view = $view;
-        $this->path = storage_path('framework/views/' . sha1($this->view->getPath()).sha1(serialize($this->view->getData())) . '.php');
+        // Hash combined data and path.  If either change, new pre-compiled file is generated.
+        $dataPathChecksum = hash('sha256', json_encode([
+            'path' => $this->view->getPath(),
+            'data' => $this->view->getData(),
+        ]));
+        $this->path = storage_path("framework/views/{$dataPathChecksum}.mjml.php");
     }
 
     /**
