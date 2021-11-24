@@ -39,7 +39,7 @@ class MJML
             'path' => $this->view->getPath(),
             'data' => $this->view->getData(),
         ]));
-        $this->path = storage_path("framework/views/{$dataPathChecksum}.mjml.php");
+        $this->path = rtrim(config('view.compiled'), '/') . "/{$dataPathChecksum}.mjml.php";
     }
 
     /**
@@ -71,7 +71,7 @@ class MJML
         File::put($this->path, $html);
 
         $contentChecksum    = hash('sha256', $html);
-        $this->compiledPath = storage_path("framework/views/{$contentChecksum}.php");
+        $this->compiledPath = rtrim(config('view.compiled'), '/') . "/{$contentChecksum}.php";
 
         if (! File::exists($this->compiledPath)) {
             $this->process = Process::fromShellCommandline($this->buildCmdLineFromConfig());
