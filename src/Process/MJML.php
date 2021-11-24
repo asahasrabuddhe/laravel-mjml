@@ -105,6 +105,6 @@ class MJML
      */
     public function detectBinaryPath()
     {
-        return base_path('node_modules/.bin/mjml');
+        return 'node ' . base_path('node_modules/.bin/mjml');
     }
 }
