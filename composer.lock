@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a722fc76e9f3ff970e8e88295c6da5da",
+    "content-hash": "98fcde5e8421823682b010bf783f7576",
     "packages": [
         {
             "name": "soundasleep/html2text",
