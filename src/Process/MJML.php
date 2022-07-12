@@ -2,7 +2,7 @@
 
 namespace Asahasrabuddhe\LaravelMJML\Process;
 
-use Html2Text\Html2Text;
+use Soundasleep\Html2Text;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\HtmlString;
 use Illuminate\View\View;
