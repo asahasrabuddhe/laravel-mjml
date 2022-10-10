@@ -53,6 +53,7 @@ class MJML
             'node',
             config('mjml.auto_detect_path') ? $this->detectBinaryPath() : config('mjml.path_to_binary'),
             $this->path,
+            '--config.filePath=' . dirname($this->view->getPath()),
             '-o',
             $this->compiledPath,
         ]);
