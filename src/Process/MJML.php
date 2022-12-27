@@ -96,7 +96,7 @@ class MJML
      */
     public function renderText()
     {
-        return new HtmlString(html_entity_decode(preg_replace("/[\r\n]{2,}/", "\n\n", Html2Text::convert($this->renderHTML())), ENT_QUOTES, 'UTF-8'));
+        return new HtmlString(html_entity_decode(preg_replace("/[\r\n]{2,}/", "\n\n", Html2Text::convert($this->renderHTML(), ['ignore_errors' => true])), ENT_QUOTES, 'UTF-8'));
     }
 
     /**
