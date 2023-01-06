@@ -30,6 +30,6 @@
     },
     "require": {
         "symfony/process": "^4.0.0|^5.0.0|^6.0.0",
-        "soundasleep/html2text": "~2.0.0"
+        "soundasleep/html2text": "~2.1.0"
     }
 }
