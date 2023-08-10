@@ -24,21 +24,33 @@ class MJML
     /**
      * @var string
      */
+    protected $mjml;
+
+    /**
+     * @var string
+     */
     protected $path;
 
     /**
      * MJML constructor.
      *
-     * @param View $view
+     * @param View|string $mjmlViewOrMjml
      */
-    public function __construct($view)
+    public function __construct($mjmlViewOrMjml)
     {
-        $this->view = $view;
-        // Hash combined data and path.  If either change, new pre-compiled file is generated.
-        $dataPathChecksum = hash('sha256', json_encode([
-            'path' => $this->view->getPath(),
-            'data' => $this->view->getData(),
-        ]));
+        if (is_string($mjmlViewOrMjml)) {
+            $this->mjmlContent = $mjmlViewOrMjml;
+            // Hash combined data and path.  If either change, new pre-compiled file is generated.
+            $dataPathChecksum = hash('sha256', $mjmlViewOrMjml);
+        } else {
+            $this->view = $view;
+            // Hash combined data and path.  If either change, new pre-compiled file is generated.
+            $dataPathChecksum = hash('sha256', json_encode([
+                'path' => $this->view->getPath(),
+                'data' => $this->view->getData(),
+            ]));
+        }
+
         $this->path = rtrim(config('view.compiled'), '/') . "/{$dataPathChecksum}.mjml.php";
     }
 
@@ -53,7 +65,7 @@ class MJML
             'node',
             config('mjml.auto_detect_path') ? $this->detectBinaryPath() : config('mjml.path_to_binary'),
             $this->path,
-            '--config.filePath=' . dirname($this->view->getPath()),
+            $this->view ? '--config.filePath=' . dirname($this->view->getPath()) : '',
             '-o',
             $this->compiledPath,
         ]);
@@ -68,11 +80,13 @@ class MJML
      */
     public function renderHTML()
     {
-        $html = $this->view->render();
+        if ($this->view) {
+            $this->mjmlContent = $this->view->render();
+        }
 
-        File::put($this->path, $html);
+        File::put($this->path, $this->mjmlContent);
 
-        $contentChecksum    = hash('sha256', $html);
+        $contentChecksum    = hash('sha256', $this->mjmlContent);
         $this->compiledPath = rtrim(config('view.compiled'), '/') . "/{$contentChecksum}.php";
 
         if (! File::exists($this->compiledPath)) {
