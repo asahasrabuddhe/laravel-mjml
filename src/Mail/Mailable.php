@@ -20,7 +20,7 @@ class Mailable extends IlluminateMailable
      *
      * @var string
      */
-    protected $mjmlConcent = '';
+    protected $mjmlContent = '';
 
     /**
      * Set the MJML template for the message.
