@@ -16,6 +16,13 @@ class Mailable extends IlluminateMailable
     protected $mjml;
 
     /**
+     * The MJML content for the message (if applicable).
+     *
+     * @var string
+     */
+    protected $mjmlConcent = '';
+
+    /**
      * Set the MJML template for the message.
      *
      * @param  string  $view
@@ -31,13 +38,27 @@ class Mailable extends IlluminateMailable
     }
 
     /**
+     * Set the MJML content for the message.
+     *
+     * @param  string  $view
+     * @param  array  $data
+     * @return $this
+     */
+    public function mjmlContent($mjmlContent)
+    {
+        $this->mjmlContent = $mjmlContent;
+
+        return $this;
+    }
+
+    /**
      * Build the view for the message.
      *
      * @return array|string
      */
     protected function buildView()
     {
-        if (isset($this->mjml)) {
+        if (isset($this->mjml) || isset($this->mjmlContent)) {
             return $this->buildMjmlView();
         }
         if (isset($this->markdown)) {
@@ -59,8 +80,10 @@ class Mailable extends IlluminateMailable
      */
     protected function buildMjmlView()
     {
-        $view = View::make($this->mjml, $this->buildViewData());
-        $mjml = new MJML($view);
+        if (isset($this->mjml)) {
+            $this->mjmlContent = View::make($this->mjml, $this->buildViewData());
+        }
+        $mjml = new MJML($this->mjmlContent);
 
         return [
             'html' => $mjml->renderHTML(),
