@@ -43,7 +43,7 @@ class MJML
             // Hash combined data and path.  If either change, new pre-compiled file is generated.
             $dataPathChecksum = hash('sha256', $mjmlViewOrMjml);
         } else {
-            $this->view = $view;
+            $this->view = $mjmlViewOrMjml;
             // Hash combined data and path.  If either change, new pre-compiled file is generated.
             $dataPathChecksum = hash('sha256', json_encode([
                 'path' => $this->view->getPath(),
