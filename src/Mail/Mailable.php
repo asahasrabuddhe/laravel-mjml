@@ -40,8 +40,7 @@ class Mailable extends IlluminateMailable
     /**
      * Set the MJML content for the message.
      *
-     * @param  string  $view
-     * @param  array  $data
+     * @param  string  $mjmlContent
      * @return $this
      */
     public function mjmlContent($mjmlContent)
