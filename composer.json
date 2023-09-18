@@ -1,6 +1,7 @@
 {
     "name": "asahasrabuddhe/laravel-mjml",
     "description": "A package that enables using MJML with Laravel Mailables.",
+    "license" : "MIT",
     "authors": [
         {
             "name": "Ajitem Sahasrabuddhe",
