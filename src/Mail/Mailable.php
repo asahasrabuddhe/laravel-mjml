@@ -60,16 +60,7 @@ class Mailable extends IlluminateMailable
         if (isset($this->mjml) || isset($this->mjmlContent)) {
             return $this->buildMjmlView();
         }
-        if (isset($this->markdown)) {
-            return $this->buildMarkdownView();
-        }
-        if (isset($this->view, $this->textView)) {
-            return [$this->view, $this->textView];
-        } elseif (isset($this->textView)) {
-            return ['text' => $this->textView];
-        }
-
-        return $this->view;
+        return parent::buildView();
     }
 
     /**
