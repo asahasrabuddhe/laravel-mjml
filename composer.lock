@@ -4,30 +4,30 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7bf688e68d43be7ce7f6b8a4b2648ecf",
+    "content-hash": "ba01d1dde8c1b3994ede5b4a2fe95395",
     "packages": [
         {
             "name": "soundasleep/html2text",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/soundasleep/html2text.git",
-                "reference": "aa214620d7beecd5cef8b1c32102a9204edb82f5"
+                "reference": "83502b6f8f1aaef8e2e238897199d64f284b4af3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/soundasleep/html2text/zipball/aa214620d7beecd5cef8b1c32102a9204edb82f5",
-                "reference": "aa214620d7beecd5cef8b1c32102a9204edb82f5",
+                "url": "https://api.github.com/repos/soundasleep/html2text/zipball/83502b6f8f1aaef8e2e238897199d64f284b4af3",
+                "reference": "83502b6f8f1aaef8e2e238897199d64f284b4af3",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "php": "^7.0|^8.0"
+                "php": "^7.3|^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.0|^8.0|^9.0",
-                "soundasleep/component-tests": "^0.2"
+                "phpstan/phpstan": "^1.9",
+                "phpunit/phpunit": "^7.0|^8.0|^9.0"
             },
             "type": "library",
             "autoload": {
@@ -57,9 +57,9 @@
             "support": {
                 "email": "support@jevon.org",
                 "issues": "https://github.com/soundasleep/html2text/issues",
-                "source": "https://github.com/soundasleep/html2text/tree/2.0.0"
+                "source": "https://github.com/soundasleep/html2text/tree/2.1.0"
             },
-            "time": "2022-01-29T19:05:09+00:00"
+            "time": "2023-01-06T09:28:15+00:00"
         },
         {
             "name": "symfony/polyfill-php80",
