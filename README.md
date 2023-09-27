@@ -28,10 +28,28 @@ Select the laravel-mjml in the list. You will also need to install the MJML CLI:
 
     ``` use Illuminate\Mail\Mailable;```
 
-    with 
+    with
 
     ```use Asahasrabuddhe\LaravelMJML\Mail\Mailable;```
-4. In the build method, use: `$this->mjml('view.name');`
+4. For Laravel 8 and below, in the `build` method, use:
+
+    ```php
+    public function build()
+    {
+        return $this->mjml('view.name')
+    }
+    ```
+
+    For Laravel 9, in the `content` method:, use:
+
+    ```php
+    public function content()
+    {
+        return new Content(
+            view: $this->mjml('view.name')->buildMjmlView()['html'],
+        );
+    }
+    ```
 
 ## Configuration
 

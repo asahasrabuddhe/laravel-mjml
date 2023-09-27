@@ -1,6 +1,7 @@
 {
     "name": "asahasrabuddhe/laravel-mjml",
     "description": "A package that enables using MJML with Laravel Mailables.",
+    "license" : "MIT",
     "authors": [
         {
             "name": "Ajitem Sahasrabuddhe",
@@ -30,6 +31,6 @@
     },
     "require": {
         "symfony/process": "^4.0.0|^5.0.0|^6.0.0",
-        "soundasleep/html2text": "~2.0.0"
+        "soundasleep/html2text": "~2.1.0"
     }
 }
