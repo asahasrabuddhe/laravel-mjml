@@ -14,4 +14,8 @@ return [
      * The path to the MJML binary
      */
      'path_to_binary' => env('MJML_PATH_TO_BINARY', ''),
+    /*
+     * The path to the NODE binary
+     */
+     'node_path' => env('MJML_NODE_PATH', 'node'),
 ];
